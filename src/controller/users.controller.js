@@ -1,4 +1,7 @@
+const {insertUser} = require("../models/users.model")
+
 exports.readAllUsers = (req, res) => {
+  console.log(req.query);
   return res.status(200).json({
     success: true,
     message: 'List data of users'
@@ -7,14 +10,16 @@ exports.readAllUsers = (req, res) => {
 
 
 exports.readUser = (req, res) => {
+  console.log(req.params)
   return res.status(200).json({
     success: true,
-    message: 'Detail user'
+    message: 'Detail userB'
   })
 };
 
 
 exports.createUsers = (req, res) => {
+  console.log(req.body);
   return res.status(200).json({
     success: true,
     message: 'User created successfully'
