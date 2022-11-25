@@ -202,3 +202,8 @@ INSERT INTO "reservedSeat" ("seatNum", "transactionId") VALUES ('C4', 2), ('C5',
 INSERT INTO "paymentMethod" ("name") VALUES ('Visa');
 
 INSERT INTO "subscribers" ("email") VALUES ('pengunjung@email.com');
+
+
+ALTER TABLE "users" ADD CONSTRAINT "email" UNIQUE ("email");
+ALTER TABLE "genre" ADD CONSTRAINT "name" UNIQUE ("name");
+
