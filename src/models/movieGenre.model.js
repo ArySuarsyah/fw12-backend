@@ -36,5 +36,5 @@ exports.deleteMovieGenre = (data, call) => {
   const value = [data.params.id]
 
   db.query(sql, value, call)
-}
+};
 

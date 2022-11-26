@@ -34,7 +34,6 @@ exports.updateCinema = (data, call) => {
 }
 
 
-
 exports.deleteCinema = (data, call) => {
   const sql = 'DELETE FROM "cinemas" WHERE "id" = $1 RETURNING *'
   const value = [data.params.id]

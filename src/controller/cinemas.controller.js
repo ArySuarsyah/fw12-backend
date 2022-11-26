@@ -1,4 +1,3 @@
-const { json } = require('express');
 const cinemaModel = require('../models/cinemas.model')
 
 

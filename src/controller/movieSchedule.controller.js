@@ -1,11 +1,11 @@
+const movieScheduleModel = require('../models/movieSchedule.model')
 
-const movieGenreModel = require('../models/movieGenre.model');
 
 
-exports.readAllMovieGenre = (req, res) => {
-  movieGenreModel.readAllMovieGenre((err, data) => {
+exports.readAllMovieSchedule = (req, res) => {
+  movieScheduleModel.readAllMovieSchedule((err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -21,10 +21,9 @@ exports.readAllMovieGenre = (req, res) => {
 };
 
 
-exports.readMovieGenre = (req, res) => {
-  movieGenreModel.readMovieGenre(req.params, (err, data) => { // kenapa pake params?
+exports.readMovieSchedule = (req, res) => {
+  movieScheduleModel.readMovieSchedule(req.params, (err, data) => {
     if (err) {
-      console.log(err)
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -39,10 +38,10 @@ exports.readMovieGenre = (req, res) => {
   })
 };
 
-
-exports.createMovieGenre = (req, res) => {
-  movieGenreModel.createMovieGenre(req.body, (err, data) => {
+exports.updateMovieSchedule = (req, res) => {
+  movieScheduleModel.updateMovieSchedule(req, (err, data) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -50,7 +49,7 @@ exports.createMovieGenre = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Movie Genre Created success',
+        message: 'Success',
         result: data.rows[0]
       })
     }
@@ -58,27 +57,27 @@ exports.createMovieGenre = (req, res) => {
 };
 
 
-exports.updateMovieGenre = (req, res) => {
-  movieGenreModel.updateMovieGenre(req, (err, data) => {
+exports.createMovieSchedule = (req, res) => {
+  movieScheduleModel.createMovieSchedule(req.body, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
         success: false,
-        message: 'Acces failed'
+        message: 'Access failed'
       })
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Update movie genre success',
-        reuslt: data.rows[0]
+        message: 'Success',
+        result: data.rows[0]
       })
     }
   })
 };
 
 
-exports.deleteMovieGenre = (req, res) => {
-  movieGenreModel.deleteMovieGenre(req, (err, data) => {
+exports.deleteMovieSchedule = (req, res) => {
+  movieScheduleModel.deleteMovieSchedule(req, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -93,4 +92,4 @@ exports.deleteMovieGenre = (req, res) => {
       })
     }
   })
-};
+}

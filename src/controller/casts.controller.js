@@ -1,11 +1,12 @@
+const castsModel = require('../models/casts.model');
 
-const movieGenreModel = require('../models/movieGenre.model');
 
 
-exports.readAllMovieGenre = (req, res) => {
-  movieGenreModel.readAllMovieGenre((err, data) => {
+
+
+exports.readAllCasts = (req, res) => {
+  castsModel.readAllCasts((err, data) => {
     if (err) {
-      console.log(err)
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -21,10 +22,9 @@ exports.readAllMovieGenre = (req, res) => {
 };
 
 
-exports.readMovieGenre = (req, res) => {
-  movieGenreModel.readMovieGenre(req.params, (err, data) => { // kenapa pake params?
+exports.readCasts = (req, res) => {
+  castsModel.readCasts(req.params, (err, data) => {
     if (err) {
-      console.log(err)
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -39,9 +39,8 @@ exports.readMovieGenre = (req, res) => {
   })
 };
 
-
-exports.createMovieGenre = (req, res) => {
-  movieGenreModel.createMovieGenre(req.body, (err, data) => {
+exports.updateCasts = (req, res) => {
+  castsModel.updateCasts(req, (err, data) => {
     if (err) {
       return res.status(500).json({
         success: false,
@@ -50,7 +49,25 @@ exports.createMovieGenre = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Movie Genre Created success',
+        message: 'Update success',
+        result: data.rows[0]
+      })
+    }
+  })
+};
+
+exports.createCasts = (req, res) => {
+  castsModel.createCasts(req.body, (err, data) => {
+    if (err) {
+      console.log(err)
+      return res.status(500).json({
+        success: false,
+        message: 'Access failed',
+      })
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: 'Create casts successfully',
         result: data.rows[0]
       })
     }
@@ -58,39 +75,18 @@ exports.createMovieGenre = (req, res) => {
 };
 
 
-exports.updateMovieGenre = (req, res) => {
-  movieGenreModel.updateMovieGenre(req, (err, data) => {
+exports.deleteCasts = (req, res) => {
+  castsModel.deleteCasts(req, (err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
-        message: 'Acces failed'
+        message: 'Access failed'
       })
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Update movie genre success',
-        reuslt: data.rows[0]
+        message: 'Casts delete success'
       })
     }
   })
-};
-
-
-exports.deleteMovieGenre = (req, res) => {
-  movieGenreModel.deleteMovieGenre(req, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: ' Access failed'
-      })
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: 'Delete movie genre success',
-        result: data
-      })
-    }
-  })
-};
+}

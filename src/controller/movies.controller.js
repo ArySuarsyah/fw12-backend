@@ -1,11 +1,11 @@
+const moviesModel = require('../models/movies.model')
 
-const movieGenreModel = require('../models/movieGenre.model');
 
 
-exports.readAllMovieGenre = (req, res) => {
-  movieGenreModel.readAllMovieGenre((err, data) => {
+exports.readAllMovies = (req, res) => {
+  moviesModel.readAllMovies((err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -20,11 +20,10 @@ exports.readAllMovieGenre = (req, res) => {
   })
 };
 
-
-exports.readMovieGenre = (req, res) => {
-  movieGenreModel.readMovieGenre(req.params, (err, data) => { // kenapa pake params?
+exports.readMovies = (req, res) => {
+  moviesModel.readMovies(req.params, (err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -40,9 +39,10 @@ exports.readMovieGenre = (req, res) => {
 };
 
 
-exports.createMovieGenre = (req, res) => {
-  movieGenreModel.createMovieGenre(req.body, (err, data) => {
+exports.createMovies = (req, res) => {
+  moviesModel.createMovies(req.body, (err, data) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -50,7 +50,25 @@ exports.createMovieGenre = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Movie Genre Created success',
+        message: 'Success',
+        result: data.rows[0]
+      })
+    }
+  })
+};
+
+exports.updateMovies = (req, res) => {
+  moviesModel.updateMovies(req, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: 'Access failed'
+      })
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: 'Success',
         result: data.rows[0]
       })
     }
@@ -58,27 +76,8 @@ exports.createMovieGenre = (req, res) => {
 };
 
 
-exports.updateMovieGenre = (req, res) => {
-  movieGenreModel.updateMovieGenre(req, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: 'Acces failed'
-      })
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: 'Update movie genre success',
-        reuslt: data.rows[0]
-      })
-    }
-  })
-};
-
-
-exports.deleteMovieGenre = (req, res) => {
-  movieGenreModel.deleteMovieGenre(req, (err, data) => {
+exports.deleteMovie = (req, res) => {
+  moviesModel.deleteMovie(req, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({

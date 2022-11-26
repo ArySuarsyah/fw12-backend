@@ -1,11 +1,9 @@
+const movieCastsModel = require('../models/movieCasts.model')
 
-const movieGenreModel = require('../models/movieGenre.model');
 
-
-exports.readAllMovieGenre = (req, res) => {
-  movieGenreModel.readAllMovieGenre((err, data) => {
+exports.readAllMovieCasts = (req, res) => {
+  movieCastsModel.readAllMovieCasts((err, data) => {
     if (err) {
-      console.log(err)
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -13,7 +11,7 @@ exports.readAllMovieGenre = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Access success',
+        message: 'Access failed',
         result: data
       })
     }
@@ -21,10 +19,10 @@ exports.readAllMovieGenre = (req, res) => {
 };
 
 
-exports.readMovieGenre = (req, res) => {
-  movieGenreModel.readMovieGenre(req.params, (err, data) => { // kenapa pake params?
+exports.readMovieCasts = (req, res) => {
+  movieCastsModel.readMovieCasts(req.params, (err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -32,17 +30,17 @@ exports.readMovieGenre = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Access success',
+        message: 'Success',
         result: data.rows[0]
       })
     }
   })
 };
 
-
-exports.createMovieGenre = (req, res) => {
-  movieGenreModel.createMovieGenre(req.body, (err, data) => {
+exports.createMovieCasts = (req, res) => {
+  movieCastsModel.createMovieCasts(req.body, (err, data) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -50,7 +48,7 @@ exports.createMovieGenre = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Movie Genre Created success',
+        message: 'Success',
         result: data.rows[0]
       })
     }
@@ -58,38 +56,37 @@ exports.createMovieGenre = (req, res) => {
 };
 
 
-exports.updateMovieGenre = (req, res) => {
-  movieGenreModel.updateMovieGenre(req, (err, data) => {
+exports.updateMovieCasts = (req, res) => {
+  movieCastsModel.updateMovieCasts(req, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
         success: false,
-        message: 'Acces failed'
+        message: 'Access failed'
       })
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Update movie genre success',
-        reuslt: data.rows[0]
+        message: 'Success',
+        result: data.rows[0]
       })
     }
   })
 };
 
-
-exports.deleteMovieGenre = (req, res) => {
-  movieGenreModel.deleteMovieGenre(req, (err, data) => {
+exports.deleteMovieCasts = (req, res) => {
+  movieCastsModel.deleteMovieCasts(req, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
         success: false,
-        message: ' Access failed'
+        message: 'Access failed'
       })
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Delete movie genre success',
-        result: data
+        message: 'Success',
+        result: data.rows[0]
       })
     }
   })
