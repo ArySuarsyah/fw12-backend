@@ -1,27 +1,28 @@
-const movieScheduleTimesModel = require('../models/movieScheduleTimes.model')
+const paymentMethodModel = require('../models/paymentMethod.model')
 
 
 
-exports.readAllMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.readAllMovieScheduleTimes((err, data) => {
+exports.readAllPaymentMethod = (req, res) => {
+  paymentMethodModel.readAllPaymentMethod((err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
-        success: false,
+        succes: false,
         message: 'Acces failed'
       })
     } else {
       return res.status(200).json({
-        success: true,
-        message: 'Access Success',
+        succes: true,
+        message: 'Access success',
         result: data
       })
     }
   })
 };
 
-exports.readMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.readMovieScheduleTimes(req.params, (err, data) => {
+
+exports.readPaymentMethod = (req, res) => {
+  paymentMethodModel.readPaymentMethod(req.params, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -39,26 +40,8 @@ exports.readMovieScheduleTimes = (req, res) => {
 };
 
 
-exports.createMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.createMovieScheduleTimes(req.body, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: 'Success',
-        result: data.rows[0]
-      })
-    }
-  })
-};
-
-exports.updateMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.updateMovieScheduleTimes(req, (err, data) => {
+exports.createPaymentMethod = (req, res) => {
+  paymentMethodModel.createPaymentMethod(req.body, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -76,8 +59,27 @@ exports.updateMovieScheduleTimes = (req, res) => {
 };
 
 
-exports.deleteMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.deleteMovieScheduleTimes(req, (err, data) => {
+exports.updatePaymentMethod = (req, res) => {
+  paymentMethodModel.updatePaymentMethod(req, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: 'Access failed'
+      })
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: 'Success',
+        result: data.rows[0]
+      })
+    }
+  })
+};
+
+
+exports.deletePaymentMethod = (req, res) => {
+  paymentMethodModel.deletePaymentMethod(req, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -87,7 +89,7 @@ exports.deleteMovieScheduleTimes = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Delete movie genre success',
+        message: 'Delete payment method success',
         result: data
       })
     }

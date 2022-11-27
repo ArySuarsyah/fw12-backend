@@ -1,27 +1,28 @@
-const movieScheduleTimesModel = require('../models/movieScheduleTimes.model')
+const reservedSeatModel = require('../models/reservedSeat.model')
 
 
 
-exports.readAllMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.readAllMovieScheduleTimes((err, data) => {
+
+exports.readAllReservedSeat = (req, res) => {
+  reservedSeatModel.readAllReservedSeat((err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
-        message: 'Acces failed'
+        message: 'Access failed'
       })
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Access Success',
+        message: 'Access success',
         result: data
       })
     }
   })
 };
 
-exports.readMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.readMovieScheduleTimes(req.params, (err, data) => {
+
+exports.readReservedSeat = (req, res) => {
+  reservedSeatModel.readReservedSeat(req.params, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -39,26 +40,8 @@ exports.readMovieScheduleTimes = (req, res) => {
 };
 
 
-exports.createMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.createMovieScheduleTimes(req.body, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: 'Success',
-        result: data.rows[0]
-      })
-    }
-  })
-};
-
-exports.updateMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.updateMovieScheduleTimes(req, (err, data) => {
+exports.createReservedSeat = (req, res) => {
+  reservedSeatModel.createReservedSeat(req.body, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -76,8 +59,27 @@ exports.updateMovieScheduleTimes = (req, res) => {
 };
 
 
-exports.deleteMovieScheduleTimes = (req, res) => {
-  movieScheduleTimesModel.deleteMovieScheduleTimes(req, (err, data) => {
+exports.updateReservedSeat = (req, res) => {
+  reservedSeatModel.updateReservedSeat(req, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: 'Access failed'
+      })
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: 'Success',
+        result: data.rows[0]
+      })
+    }
+  })
+};
+
+
+exports.deleteReservedSeat = (req, res) => {
+  reservedSeatModel.deleteReservedSeat(req, (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -87,7 +89,7 @@ exports.deleteMovieScheduleTimes = (req, res) => {
     } else {
       return res.status(200).json({
         success: true,
-        message: 'Delete movie genre success',
+        message: 'Delete reserved seat success',
         result: data
       })
     }

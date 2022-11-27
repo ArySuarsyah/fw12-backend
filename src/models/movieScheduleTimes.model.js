@@ -36,4 +36,4 @@ exports.deleteMovieScheduleTimes = (data, call) => {
   const values = [data.params.id]
 
   db.query(sql, values, call)
-}
+};

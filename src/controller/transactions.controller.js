@@ -1,15 +1,10 @@
-const userModel = require("../models/users.model");
-
-const errorHandler = require('../helper/errorHandler.helper');
+const transactionsModel = require('../models/transactions.model');
 
 
 
 
-
-
-
-exports.readAllUsers = (request, response) => {
-userModel.readAllUser((err, data) => {  // ???
+exports.readAllTransactions = (request, response) => {
+transactionsModel.readAllTransactions((err, data) => {  // ???
     if (err) {
       return response.status(500).json({
         success: false,
@@ -25,8 +20,11 @@ userModel.readAllUser((err, data) => {  // ???
   });
 };
 
-exports.readUser = (request, response) => {
-  userModel.readUser((request.params), (err, data) => {
+
+
+
+exports.readTransactions = (request, response) => {
+  transactionsModel.readTransactions((request.params), (err, data) => {
     if (err) {
       return response.status(500).json({
         success: false,
@@ -43,10 +41,14 @@ exports.readUser = (request, response) => {
 }
 
 
-exports.createUsers = (req, res) => {
-  userModel.insertUser(req.body, (err, data) => {
+exports.createTransactions = (req, res) => {
+  transactionsModel.createTransactions(req.body, (err, data) => {
     if (err) {
-      errorHandler(err, res)
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: 'Access failed'
+      })
     } else {
       return res.status(200).json({
         success: true,
@@ -58,9 +60,10 @@ exports.createUsers = (req, res) => {
   }
 
 
-exports.updateUsers = (req, res) => {
-  userModel.updateUsers(req, (err, data) => {
+exports.updateTransactions = (req, res) => {
+  transactionsModel.updateTransactions(req, (err, data) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Something wrong'
@@ -76,8 +79,8 @@ exports.updateUsers = (req, res) => {
 }
 
 
-exports.deleteUsers = (req, res) => {
-  userModel.deleteUsers(req, (err, data) => {
+exports.deleteTransactions = (req, res) => {
+  transactionsModel.deleteTransactions(req, (err, data) => {
     if (err) {
       return res.status(500).json({
         success: false,

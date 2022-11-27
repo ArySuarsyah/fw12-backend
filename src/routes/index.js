@@ -1,3 +1,5 @@
+const { Router } = require('express');
+
 const routes = require('express').Router()
 
 
@@ -18,6 +20,16 @@ routes.use('/movieSchedules', require('./movieSchedule.router'));
 routes.use('/movieScheduleTimes', require('./movieScheduleTimes.router'));
 
 routes.use('/movies', require('./movies.router'));
+
+routes.use('/paymentMethod', require('./paymentMethod.router'));
+
+routes.use('/reservedSeat', require('./reservedSeat.router'));
+
+routes.use('/status', require('./status.router'));
+
+routes.use('/subscribers', require('./subscribers.router'));
+
+routes.use('/transactions', require('./transactions.router'))
 
 module.exports = routes
 
