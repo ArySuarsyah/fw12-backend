@@ -25,7 +25,7 @@ exports.createMovieScheduleTimes = (data, call) => {
 };
 
 exports.updateMovieScheduleTimes = (data, call) => {
-  const sql = 'UPDATE "movieScheduleTimes" SET "time" = $1, "movieScheduleId" = $2 WHERE "id" = $3 RETURNING *'
+  const sql = `UPDATE "movieScheduleTimes" SET "time" = COALESCE(NULLIF($1, '')::TIME, "time"), "movieScheduleId" = COALESCE(NULLIF($2, '')::INTEGER, "movieScheduleId") WHERE "id" = $3 RETURNING *`
   const value = [data.body.time, data.body.movieScheduleId, data.params.id];
 
   db.query(sql, value, call);

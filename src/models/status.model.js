@@ -26,7 +26,7 @@ exports.createStatus = (data, call) => {
 
 
 exports.updateStatus = (data, call) => {
-  const sql = 'UPDATE "status" SET "name" = $1 WHERE "id" = $2 RETURNING *'
+  const sql = `UPDATE "status" SET "name" = COALESCE(NULLIF($1, ''), "name") WHERE "id" = $2 RETURNING *`
   const value = [data.body.name, data.params.id];
 
   db.query(sql, value, call);

@@ -24,7 +24,7 @@ exports.createTransactions = (data, call) => {
 
 
 exports.updateTransactions = (data, call) => {
-  const sql = 'UPDATE transactions SET "movieId" = $1, "cinemaId" = $2, "movieScheduleId" = $3, "fullName" = $4, "email" = $5, "phoneNumber" = $6, "statusId" = $7 WHERE "id" = $8 RETURNING *';
+  const sql = `UPDATE transactions SET "movieId" = COALESCE(NULLIF($1, '')::INTEGER, "movieId"), "cinemaId" = COALESCE(NULLIF($2, '')::INTEGER, "cinemaId"), "movieScheduleId" = COALESCE(NULLIF($3, '')::INTEGER, "movieScheduleId"), "fullName" = COALESCE(NULLIF($4, ''), "fullName"), "email" = COALESCE(NULLIF($5, ''), "email"), "phoneNumber" = COALESCE(NULLIF($6, ''), "phoneNumber"), "statusId" = COALESCE(NULLIF($7, '')::INTEGER, "statusId") WHERE "id" = $8 RETURNING *`;
   const value = [data.body.movieId, data.body.cinemaId, data.body.movieScheduleId, data.body.fullName, data.body.email, data.body.phoneNumber, data.body.statusId, data.params.id];
 
   db.query(sql, value, call)

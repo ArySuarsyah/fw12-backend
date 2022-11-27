@@ -21,7 +21,7 @@ exports.createGenre = (data, call) => {
 };
 
 exports.updateGenre = (data, call) => {
-  const sql = 'UPDATE "genre" SET "name" = $1 WHERE "id" = $2 RETURNING *'
+  const sql = `UPDATE "genre" SET "name" = COALESCE(NULLIF($1, ''), "name") WHERE "id" = $2 RETURNING *`
   const value = [data.body.name, data.params.id]
 
   db.query(sql, value, call);

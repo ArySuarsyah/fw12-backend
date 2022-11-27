@@ -61,6 +61,7 @@ exports.createUsers = (req, res) => {
 exports.updateUsers = (req, res) => {
   userModel.updateUsers(req, (err, data) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Something wrong'

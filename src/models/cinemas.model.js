@@ -27,7 +27,7 @@ exports.createCinema = (data, call) => {
 
 
 exports.updateCinema = (data, call) => {
-  const sql = 'UPDATE "cinemas" SET "picture" = $1, "name" = $2, "address" = $3, "city" = $4 WHERE "id" = $5 RETURNING *'
+  const sql = `UPDATE "cinemas" SET "picture" = COALESCE(NULLIF($1, ''), "picture"), "name" = COALESCE(NULLIF($2, ''), "name") , "address" = COALESCE(NULLIF($3, ''), "address"), "city" = COALESCE(NULLIF($4, ''), "city") WHERE "id" = $5 RETURNING *`
   const value = [data.body.picture, data.body.name, data.body.address, data.body.city, data.params.id]
 
   db.query(sql, value, call)

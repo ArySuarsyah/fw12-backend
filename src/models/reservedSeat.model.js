@@ -26,7 +26,7 @@ exports.createReservedSeat = (data, call) => {
 
 
 exports.updateReservedSeat = (data, call) => {
-  const sql = 'UPDATE "reservedSeat" SET "seatNum" = $1, "transactionId" = $2 WHERE "id" = $3 RETURNING *'
+  const sql = `UPDATE "reservedSeat" SET "seatNum" = COALESCE(NULLIF($1, ''), "seatNum"), "transactionId" = COALESCE(NULLIF($2, '')::INTEGER, "transactionId") WHERE "id" = $3 RETURNING *`
   const value = [data.body.seatNum, data.body.transactionId, data.params.id];
 
   db.query(sql, value, call);

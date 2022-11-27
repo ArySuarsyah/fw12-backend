@@ -24,7 +24,7 @@ exports.createMovieGenre = (data, call) => {
 };
 
 exports.updateMovieGenre = (data, call) => {
-  const sql = 'UPDATE "movieGenre" SET "movieId" = $1, "genreId" = $2 WHERE "id" = $3 RETURNING *'
+  const sql = `UPDATE "movieGenre" SET "movieId" = COALESCE(NULLIF($1, '')::INTEGER, "movieId"), "genreId" = COALESCE(NULLIF($2, '')::INTEGER, "genreId") WHERE "id" = $3 RETURNING *`
   const value = [data.body.movieId, data.body.genreId, data.params.id];
 
   db.query(sql, value, call);

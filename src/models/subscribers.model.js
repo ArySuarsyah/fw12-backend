@@ -28,7 +28,7 @@ exports.createSubscribers = (data, call) => {
 
 
 exports.updateSubscribers = (data, call) => {
-  const sql = 'UPDATE "subscribers" SET "email" = $1 WHERE "id" = $2 RETURNING *'
+  const sql = `UPDATE "subscribers" SET "email" = COALESCE(NULLIF($1, ''), "email") WHERE "id" = $2 RETURNING *`
   const value = [data.body.email, data.params.id];
 
   db.query(sql, value, call);

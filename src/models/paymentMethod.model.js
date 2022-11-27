@@ -27,7 +27,7 @@ exports.createPaymentMethod = (data, call) => {
 
 
 exports.updatePaymentMethod = (data, call) => {
-  const sql = 'UPDATE "paymentMethod" SET "picture" = $1, "name" = $2 WHERE "id" = $3 RETURNING *'
+  const sql = `UPDATE "paymentMethod" SET "picture" = COALESCE(NULLIF($1, ''), "picture"), "name" = COALESCE(NULLIF($2, ''), "name") WHERE "id" = $3 RETURNING *`
   const value = [data.body.picture, data.body.name, data.params.id];
 
   db.query(sql, value, call);
