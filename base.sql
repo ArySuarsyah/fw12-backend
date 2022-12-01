@@ -19,6 +19,8 @@ CREATE TABLE
         "email"       VARCHAR(225),
         "userId"      INT,
         "code"        VARCHAR(225),
+        "password"    VARCHAR(225),
+        "confirmPassword" VARCHAR(225),
         "createdAt"   TIMESTAMPTZ DEFAULT now(),
         "updatedAt"   TIMESTAMPTZ
     );
@@ -167,11 +169,29 @@ INSERT INTO "movies" (
 )
 VALUES ('Spider-Man: Homecoming', 'June 28, 2017', 'Jon Watss', '2:13', 'Thrilled by his experience with the Avengers, Peter returns home, where he lives with his Aunt May, under the watchful eye of his new mentor Tony Stark, Peter tries to fall back into his normal daily routine - distracted by thoughts of proving himself to be more than just your friendly neighborhood Spider - Man but when the Vulture emerges as a new villain, everything that Peter holds most important will be threatened.');
 
+INSERT INTO "movies" (
+  "title", "realeseDate", "director", "duration", "synopsis"
+)
+VALUES  (
+    'One Piece: RED',
+    'September 21, 2022',
+    'Gorō Taniguchi ',
+    '2:00',
+    'The story is set on the "Island of Music" Elegia, where Uta,the world greatest diva, holds her first ever live concert and reveals herself to the public. The Straw Hats, pirates, Marines and fans from across the world gather to enjoy Uta voice, which has been described as "otherworldly".However, the event begins with the shocking revelation that Uta is the daughter of Shanks.'
+), (
+    'Avengers:Endgame',
+    'April 26, 2019',
+    'Joe Russo, Anthony Russo ',
+    '3:00',
+    'The grave course of events set in motion by Thanos that wiped out half the universe and fractured the Avengers ranks compels the remaining Avengers to take one final stand in Marvel Studios grand conclusion to twenty-two films, Avengers: Endgame.'
+);
+
 INSERT INTO "genre" ("name")
 VALUES ('Adventure'), ('Action'), ('Sci-Fi');
 
 INSERT INTO "movieGenre" ("movieId", "genreId")
-VALUES (2, 4), (2, 5), (2, 6);
+VALUES (2, 4), (2, 5), (2, 6), (9,4), (9,5), (10, 4), (10, 5);
+
 
 INSERT INTO "casts" ("name") VALUES ('Tom Holland'), ('Michael Keaton'), ('Robert Downey Jr');
 
@@ -186,6 +206,12 @@ INSERT INTO "movieSchedules" (
     "movieId", "cinemaId", "price", "startDate", "endDate"
 )
 VALUES (2, 5, '10', '2020-05-07', '2020-07-07');
+
+INSERT INTO "movieSchedules" (
+  "movieId", "cinemaId", "price", "startDate", "endDate"
+  )
+VALUES (9, 6, '10', '01-12-2022', '31-12-2022'), (10, 4, '10', '01-11-2022', '30-11-2022');
+
 
 INSERT INTO "movieShceduleTimes" (
     "time", "movieScheduleId"
@@ -206,4 +232,14 @@ INSERT INTO "subscribers" ("email") VALUES ('pengunjung@email.com');
 
 ALTER TABLE "users" ADD CONSTRAINT "email" UNIQUE ("email");
 ALTER TABLE "genre" ADD CONSTRAINT "name" UNIQUE ("name");
+
+
+
+
+
+
+
+
+
+-- Relasi
 

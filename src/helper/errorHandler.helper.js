@@ -14,6 +14,8 @@ const errorHandler = (err, res) => {
       success: false,
       message: 'Collumn does not exist'
     })
+  } else if (err.message.includes('bind message supplies 1 parameters, but prepared statement ""')) {
+    
   }
   return res.status(500).json({
     success: false,

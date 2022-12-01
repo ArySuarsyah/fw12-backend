@@ -2,7 +2,7 @@ const db = require('../helper/db.helper');
 
 
 exports.readAllCinemas = (call) => {
-  const sql = 'SELECT * FROM "cinemas"';
+  const sql = 'SELECT * FROM "cinemas" LIMIT 3 OFFSET 4';
 
 
   db.query(sql, call)

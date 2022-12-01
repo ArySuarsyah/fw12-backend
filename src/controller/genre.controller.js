@@ -6,7 +6,13 @@ const errorHandler = require('../helper/errorHandler.helper')
 
 
 exports.readAllGenre = (request, response) => {
-  genreModel.readAllGenre((err, data) => {
+  request.query.page = parseInt(request.query.page) || 1
+  request.query.limit = parseInt(request.query.limit) || 5
+  const filter = {
+    limit: request.query.limit,
+    offset: (parseInt(request.query.page) - 1) * request.query.limit
+  }
+  genreModel.readAllGenre(filter, (err, data) => {
     if (err) {
       return response.status(500).json({
         success: false,

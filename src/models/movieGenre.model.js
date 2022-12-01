@@ -2,7 +2,7 @@ const db = require('../helper/db.helper');
 
 
 exports.readAllMovieGenre = (call) => {
-  const sql = 'SELECT * FROM "movieGenre"';
+  const sql = 'SELECT * FROM "movieGenre" LIMIT';
 
   db.query(sql, call)
 };

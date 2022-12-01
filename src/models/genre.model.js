@@ -1,9 +1,9 @@
 const db = require('../helper/db.helper');
 
-exports.readAllGenre = (call) => {
-  const sql = 'SELECT * FROM "genre"';
-
-  db.query(sql, call)
+exports.readAllGenre = (filter, call) => {
+  const sql = 'SELECT * FROM "genre" LIMIT $1 OFFSET $2';
+  const values = [filter.limit, filter.offset]
+  db.query(sql, values, call)
 };
 
 exports.readGenre = (data, call) => {

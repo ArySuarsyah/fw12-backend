@@ -1,3 +1,4 @@
+const errorHandler = require('../helper/errorHandler.helper');
 const moviesModel = require('../models/movies.model')
 
 
@@ -93,3 +94,33 @@ exports.deleteMovie = (req, res) => {
     }
   })
 };
+
+
+exports.upcoming = (req, res) => {
+  moviesModel.upcoming(req.query, (err, data) => {
+    if (err) {
+      return errorHandler(err, res)
+    } else {
+      return res.json({
+        success: true,
+        message: 'Upcoming Movie',
+        result: data.rows,
+      })
+    }
+  })
+};
+
+
+exports.nowShowing = (req, res) => {
+  moviesModel.nowShowing((err, data) => {
+    if (err) {
+      return errorHandler(err, res)
+    } else {
+      return res.json({
+        success: true,
+        message: 'Now Showing Movie',
+        result: data.rows,
+      })
+    }
+  })
+}

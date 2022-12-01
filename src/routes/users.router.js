@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router()
 
-const { readAllUsers, createUsers, updateUsers, deleteUsers, readUser } = require('../controller/users.controller')
+const { readAllUsers, createUsers, updateUsers, deleteUsers, readUser, updateUsersPassword } = require('../controller/users.controller');
+
 
 usersRouter.get('/', readAllUsers); // Query string => pagination, search, limit, order | additional data.
 
@@ -10,6 +11,8 @@ usersRouter.post('/', createUsers); // Query string, body => aplication/json(dat
 usersRouter.patch('/:id', updateUsers); // Query string, body
 
 usersRouter.delete('/:id', deleteUsers); // Query string
+
+usersRouter.post('/:id', updateUsersPassword);
 
 
 module.exports = usersRouter

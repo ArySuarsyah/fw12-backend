@@ -62,6 +62,21 @@ exports.updateUsers = (req, res) => {
   userModel.updateUsers(req, (err, data) => {
     if (err) {
       console.log(err);
+      return errorHandler(err, res)
+    } else {
+      return res.status(200).json({
+      success: true,
+      message: 'user created successfully',
+      result: data.rows[0]
+    })
+    }
+  })
+}
+
+exports.updateUsersPassword = (req, res) => {
+  userModel.updateUsersPassword(req.params.id, req.body, (err, data) => {
+    if (err) {
+      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Something wrong'
