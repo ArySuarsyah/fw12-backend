@@ -19,7 +19,7 @@ userModel.readAllUser((err, data) => {  // ???
       return response.status(200).json({
         success: true,
         message: "Access success",
-        data : data
+        data : data.rows
       })
     }
   });

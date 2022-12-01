@@ -5,7 +5,7 @@ const { route } = require('./resetPassword.router');
 const routes = require('express').Router()
 
 
-routes.use('/users', require('./users.router'));
+routes.use('/users', authMiddleware, require('./users.router'));
 
 routes.use('/genre', require('./genre.router'));
 
@@ -21,7 +21,7 @@ routes.use('/movieSchedules', require('./movieSchedule.router'));
 
 routes.use('/movieScheduleTimes', require('./movieScheduleTimes.router'));
 
-routes.use('/movies', authMiddleware, require('./movies.router'));
+routes.use('/movies', require('./movies.router'));
 
 routes.use('/paymentMethod', require('./paymentMethod.router'));
 

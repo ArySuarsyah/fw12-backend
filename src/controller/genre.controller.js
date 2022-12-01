@@ -14,15 +14,12 @@ exports.readAllGenre = (request, response) => {
   }
   genreModel.readAllGenre(filter, (err, data) => {
     if (err) {
-      return response.status(500).json({
-        success: false,
-        message: 'Access genre failed'
-      })
+      errorHandler(req, res)
     } else {
       return response.status(200).json({
         success: true,
         message: 'Access success',
-        result: data
+        result: data.rows
       })
     }
   })
@@ -31,10 +28,7 @@ exports.readAllGenre = (request, response) => {
 exports.readGenre = (request, response) => {
   genreModel.readGenre((request.params), (err, data) => {
     if (err) {
-      return response.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return response.status(200).json({
         success: true,
@@ -78,7 +72,7 @@ exports.updateGenre = (req, res) => {
 exports.deleteGenre = (req, res) => {
   genreModel.deleteGenre(req, (err, data) => {
     if (err) {
-      console.log(err);
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,

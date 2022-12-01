@@ -1,18 +1,16 @@
-const cinemaModel = require('../models/cinemas.model')
+const errorHandler = require('../helper/errorHandler.helper');
+const cinemaModel = require('../models/cinemas.model');
 
 
 exports.readAllCinemas = (req, res) => {
   cinemaModel.readAllCinemas((err, data) => {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
         message: 'Access succes',
-        result: data
+        result: data.rows
       })
     }
   })
@@ -22,10 +20,7 @@ exports.readAllCinemas = (req, res) => {
 exports.readCinema = (req, res) => {
   cinemaModel.readCinema((req.params), (err, data) => {
     if (err) {
-      return res.status(500).json({
-        succces: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -40,10 +35,7 @@ exports.readCinema = (req, res) => {
 exports.createCinema = (req, res) => {
   cinemaModel.createCinema(req.body, (err, data) => {
     if (err) {
-      return res.status(500).json({
-        succces: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -59,10 +51,7 @@ exports.updateCinema = (req, res) => {
   cinemaModel.updateCinema(req, (err, data) => {
     if (err) {
       console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -77,10 +66,7 @@ exports.updateCinema = (req, res) => {
 exports.deleteCinema = (req, res) => {
   cinemaModel.deleteCinema(req, (err, data) => {
     if (err) {
-      return res.status(500).json({
-        succces: false,
-        message: 'Acces failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,

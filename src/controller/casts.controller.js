@@ -1,4 +1,5 @@
 const castsModel = require('../models/casts.model');
+const errorHandler = require('../helper/errorHandler.helper')
 
 
 
@@ -7,15 +8,12 @@ const castsModel = require('../models/casts.model');
 exports.readAllCasts = (req, res) => {
   castsModel.readAllCasts((err, data) => {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
         message: 'Access success',
-        result: data
+        result: data.rows
       })
     }
   })
@@ -25,10 +23,7 @@ exports.readAllCasts = (req, res) => {
 exports.readCasts = (req, res) => {
   castsModel.readCasts(req.params, (err, data) => {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -42,10 +37,7 @@ exports.readCasts = (req, res) => {
 exports.updateCasts = (req, res) => {
   castsModel.updateCasts(req, (err, data) => {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -59,11 +51,7 @@ exports.updateCasts = (req, res) => {
 exports.createCasts = (req, res) => {
   castsModel.createCasts(req.body, (err, data) => {
     if (err) {
-      console.log(err)
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed',
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -78,10 +66,7 @@ exports.createCasts = (req, res) => {
 exports.deleteCasts = (req, res) => {
   castsModel.deleteCasts(req, (err, data) => {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: 'Access failed'
-      })
+      errorHandler(req, res)
     } else {
       return res.status(200).json({
         success: true,

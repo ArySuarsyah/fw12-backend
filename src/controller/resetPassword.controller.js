@@ -12,7 +12,7 @@ exports.readAllResetPassword = (req, res) => {
       return res.status(200).json({
         succes: true,
         message: 'Access succes',
-        result: data
+        result: data.rows
       })
     }
   })

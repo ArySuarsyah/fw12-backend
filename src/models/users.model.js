@@ -27,12 +27,12 @@ exports.register = (data, call) => {
 }
 
 
-// exports.updateUsers = (data, call) => {
-//   const sql = `UPDATE "users" SET "picture" = COALESCE(NULLIF($1, ''), "picture"), "firstName" = COALESCE(NULLIF($2, ''), "firstName"), "lastName" = COALESCE(NULLIF($3, ''), "lastName"), "phoneNumber" = COALESCE(NULLIF($4, ''), "phoneNumber"), "email" = COALESCE(NULLIF($5, ''), "email"), "password" = COALESCE(NULLIF($6, ''), "password") WHERE "id" = $7 RETURNING *`;
-//   const value = [data.body.picture, data.body.firstName, data.body.lastName, data.body.phoneNumber, data.body.email, data.body.password, data.params.id];
+exports.updateUsers = (data, call) => {
+  const sql = `UPDATE "users" SET "picture" = COALESCE(NULLIF($1, ''), "picture"), "firstName" = COALESCE(NULLIF($2, ''), "firstName"), "lastName" = COALESCE(NULLIF($3, ''), "lastName"), "phoneNumber" = COALESCE(NULLIF($4, ''), "phoneNumber"), "email" = COALESCE(NULLIF($5, ''), "email"), "password" = COALESCE(NULLIF($6, ''), "password") WHERE "id" = $7 RETURNING *`;
+  const value = [data.body.picture, data.body.firstName, data.body.lastName, data.body.phoneNumber, data.body.email, data.body.password, data.params.id];
 
-//   db.query(sql, value, call)
-// };
+  db.query(sql, value, call)
+};
 
 
 exports.updateUsersPassword = (id, data, call) => {

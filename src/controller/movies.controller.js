@@ -15,7 +15,7 @@ exports.readAllMovies = (req, res) => {
       return res.status(200).json({
         success: true,
         message: 'Access success',
-        result: data
+        result: data.rows
       })
     }
   })
@@ -97,14 +97,21 @@ exports.deleteMovie = (req, res) => {
 
 
 exports.upcoming = (req, res) => {
-  moviesModel.upcoming(req.query, (err, data) => {
+  req.query.page = parseInt(req.query.page) || 1
+  req.query.limit = parseInt(req.query.limit) || 5
+  const filter = {
+    limit: req.query.limit,
+    offset: (parseInt(req.query.page) - 1) * req.query.limit
+  }
+  moviesModel.upcoming(req.query, filter, (err, data) => {
+    console.log(data);
     if (err) {
       return errorHandler(err, res)
     } else {
       return res.json({
         success: true,
         message: 'Upcoming Movie',
-        result: data.rows,
+        result: data.rows
       })
     }
   })

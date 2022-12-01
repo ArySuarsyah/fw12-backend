@@ -39,11 +39,11 @@ exports.deleteMovie = (data, call) => {
 };
 
 
-exports.upcoming = (data, call) => {
+exports.upcoming = (data, filter, call) => {
   const sql = `SELECT * FROM "movies" WHERE date_part('year', "realeseDate")::TEXT =
   COALESCE(NULLIF($1, ''), date_part('year', current_date)::TEXT) AND date_part('month', "realeseDate")::TEXT =
-  COALESCE(NULLIF($2, ''), date_part('month', current_date)::TEXT)`;
-  const values = [data.year, data.month];
+  COALESCE(NULLIF($2, ''), date_part('month', current_date)::TEXT) LIMIT $3 OFFSET $4`;
+  const values = [data.year, data.month, filter.limit, filter.offset];
 
   db.query(sql, values, call)
 };

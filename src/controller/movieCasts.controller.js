@@ -12,7 +12,7 @@ exports.readAllMovieCasts = (req, res) => {
       return res.status(200).json({
         success: true,
         message: 'Access failed',
-        result: data
+        result: data.rows
       })
     }
   })

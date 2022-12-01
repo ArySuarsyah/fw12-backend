@@ -4,19 +4,20 @@ const { readAllMovies, readMovies, createMovies, updateMovies, deleteMovie, upco
 const authMiddleware = require('../middleware/auth.middleware');
 
 
-movieRouter.get('/', readAllMovies);
 
-movieRouter.post('/', createMovies);
+movieRouter.get('/', authMiddleware, readAllMovies);
+
+movieRouter.post('/', authMiddleware, createMovies);
 
 movieRouter.get('/upcoming', upcoming);
 
 movieRouter.get('/nowShowing', nowShowing);
 
-movieRouter.get('/:id', readMovies);
+movieRouter.get('/:id', authMiddleware, readMovies);
 
-movieRouter.patch('/:id', updateMovies);
+movieRouter.patch('/:id', authMiddleware, updateMovies);
 
-movieRouter.delete('/:id', deleteMovie);
+movieRouter.delete('/:id', authMiddleware, deleteMovie);
 
 
 module.exports = movieRouter

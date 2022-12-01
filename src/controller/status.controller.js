@@ -13,7 +13,7 @@ exports.readAllStatus = (req, res) => {
       return res.status(200).json({
         success: true,
         message: 'Access success',
-        result: data
+        result: data.rows
       })
     }
   })

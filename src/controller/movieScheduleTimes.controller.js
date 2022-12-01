@@ -14,7 +14,7 @@ exports.readAllMovieScheduleTimes = (req, res) => {
       return res.status(200).json({
         success: true,
         message: 'Access Success',
-        result: data
+        result: data.rows
       })
     }
   })
