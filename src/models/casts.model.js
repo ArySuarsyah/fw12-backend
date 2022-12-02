@@ -38,5 +38,13 @@ exports.deleteCasts = (data, call) => {
   const values = [data.params.id]
 
   db.query(sql, values, call)
-}
+};
+
+
+exports.searchCasts = (filter, call) => {
+  const sql = `SELECT * FROM "casts" WHERE "name" LIKE $1 ORDER BY "${filter.shortBy}" ${filter.short} LIMIT $2 OFFSET $3`;
+  const values = [`%${filter.search}%`, filter.limit, filter.offset];
+
+  db.query(sql, values, call)
+};
 

@@ -58,4 +58,12 @@ exports.nowShowing = (call) => {
   WHERE current_date BETWEEN ms."startDate" AND ms."endDate" GROUP BY m.id, ms.id`;
 
   db.query(sql, call)
+};
+
+
+exports.searchMovies = (filter, call) => {
+  const sql = `SELECT * FROM "movies" WHERE "title" LIKE $1
+  ORDER BY "${filter.shortBy}" ${filter.short} LIMIT $2 OFFSET $3`
+  const value = [`%${filter.search}%`, filter.limit, filter.offset]
+  db.query(sql, value, call)
 }
