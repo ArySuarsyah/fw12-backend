@@ -66,4 +66,12 @@ exports.searchMovies = (filter, call) => {
   ORDER BY "${filter.shortBy}" ${filter.short} LIMIT $2 OFFSET $3`
   const value = [`%${filter.search}%`, filter.limit, filter.offset]
   db.query(sql, value, call)
-}
+};
+
+
+exports.countMoviesData = (filter, call) => {
+  const sql = `SELECT COUNT("title") AS "totalMovies" FROM "movies" WHERE "title" LIKE $1`;
+  const values = [`%${filter.search}%`];
+
+  db.query(sql, values, call)
+};

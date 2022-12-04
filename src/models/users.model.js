@@ -7,7 +7,7 @@ exports.readAllUser = (call) => {
 };
 
 exports.readUser = (res, call) => {
-  const sql = 'SELECT * FROM users WHERE "id" = $1'
+  const sql = 'SELECT * FROM "users" WHERE "id" = $1'
   const value = [res.id]
   db.query(sql, value, call);
 };
@@ -28,8 +28,8 @@ exports.register = (data, call) => {
 
 
 exports.updateUsers = (data, call) => {
-  const sql = `UPDATE "users" SET "picture" = COALESCE(NULLIF($1, ''), "picture"), "firstName" = COALESCE(NULLIF($2, ''), "firstName"), "lastName" = COALESCE(NULLIF($3, ''), "lastName"), "phoneNumber" = COALESCE(NULLIF($4, ''), "phoneNumber"), "email" = COALESCE(NULLIF($5, ''), "email"), "password" = COALESCE(NULLIF($6, ''), "password") WHERE "id" = $7 RETURNING *`;
-  const value = [data.body.picture, data.body.firstName, data.body.lastName, data.body.phoneNumber, data.body.email, data.body.password, data.params.id];
+  const sql = `UPDATE "users" SET "picture" = COALESCE(NULLIF($1, ''), "picture"), "firstName" = COALESCE(NULLIF($2, ''), "firstName"), "lastName" = COALESCE(NULLIF($3, ''), "lastName"), "phoneNumber" = COALESCE(NULLIF($4, ''), "phoneNumber"), "email" = COALESCE(NULLIF($5, ''), "email") WHERE "id" = $6 RETURNING *`;
+  const value = [data.body.picture, data.body.firstName, data.body.lastName, data.body.phoneNumber, data.body.email, data.params.id];
 
   db.query(sql, value, call)
 };

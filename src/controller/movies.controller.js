@@ -1,5 +1,6 @@
 const errorHandler = require('../helper/errorHandler.helper');
-const moviesModel = require('../models/movies.model')
+const moviesModel = require('../models/movies.model');
+const filter = require('../helper/filter.helper')
 
 
 
@@ -134,28 +135,21 @@ exports.nowShowing = (req, res) => {
 
 
 exports.searchMovies = (req, res) => {
-  req.query.page = parseInt(req.query.page) || 1
-  req.query.limit = parseInt(req.query.limit) || 5
-  req.query.search = req.query.search || ''
-  req.query.shortBy = req.query.shortBy || 'createdAt'
-  req.query.short = req.query.short || 'ASC'
-
-  const filter = {
-    limit: req.query.limit,
-    offset: (parseInt(req.query.page) - 1) * req.query.limit,
-    search: req.query.search,
-    shortBy: req.query.shortBy,
-    short: req.query.short
-  }
-  moviesModel.searchMovies(filter, (err, data) => {
-    if (err) {
-      return errorHandler(err, res)
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: 'Succes',
-        result: data.rows
-      })
-    }
+  const shortKey = ['title', 'createdAt', 'updatedAt']
+  filter(req.query, shortKey, moviesModel.countMoviesData, res, (filter, pageInfo) => {
+    moviesModel.searchMovies(filter, (err, {rows}) => {
+      if (err) {
+        return errorHandler(err, res)
+      } else {
+        return res.status(200).json({
+          success: true,
+          message: 'Succes',
+          page: pageInfo,
+          result: rows
+        })
+      }
+    })
   })
 };
+
+

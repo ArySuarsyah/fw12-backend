@@ -84,17 +84,24 @@ exports.resetPassword = (req, res) => {
   if (password === confirmPassword) {
     resetPasswordModel.getResetPasswordByEmailAndCode(req.body.email, req.body.code, (err, { rows: users }) => {
       if (err) {
-        return errorHandler(err, res)
+        return errorHandler(err, res);
       }
       if (users.length) {
-        const [requestReset] = users
+        const [requestReset] = users;
+        if (
+          new Date(requestReset.createdAt).getTime() + 1 * 60 *100 < new Date().getTime
+        ) {
+          return res.status(400).json({
+            succes: false,
+            message: 'Code is expired'
+          });
+        }
         userModel.updateUsersPassword(requestReset.userId, { password }, (err, { rows: users }) => {
           if (err) {
-            return errorHandler(err, res)
+            return errorHandler(err, res);
           }
           if (users.length) {
             resetPasswordModel.deletePassword(requestReset.id, (err, { rows }) => {
-              console.log(rows)
               if (rows.length) {
                 return res.status(200).json({
                   succes: true,

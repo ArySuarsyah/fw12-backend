@@ -43,7 +43,7 @@ exports.updateResetPassword = (data, call) => {
 
 
 exports.deleteResetPassword = (data, call) => {
-  const sql = 'DELETE FROM "resetPassword" WHERE "id" = $1'
+  const sql = 'DELETE FROM "resetPassword" WHERE "id" = $1 RETURNING *'
   const values = [data.id]
 
   db.query(sql, values, call)

@@ -1,3 +1,4 @@
+const errorHandler = require('../helper/errorHandler.helper');
 const resetPasswordModel = require('../models/resetPassword.model')
 
 
@@ -9,6 +10,7 @@ exports.readAllResetPassword = (req, res) => {
         message: 'Acces failed'
       })
     } else {
+      console.log(data.rows);
       return res.status(200).json({
         succes: true,
         message: 'Access succes',
@@ -17,6 +19,7 @@ exports.readAllResetPassword = (req, res) => {
     }
   })
 };
+
 
 exports.readResetPassword = (req, res) => {
   resetPasswordModel.readResetPassword(req.params, (err, data) => {
@@ -32,7 +35,7 @@ exports.readResetPassword = (req, res) => {
         return res.status(200).json({
           succes: true,
           message: 'Access succes',
-          result: data.rows[0]
+          result: data.rows[0],
         })
       } else {
         return res.status(401).json({
@@ -43,6 +46,7 @@ exports.readResetPassword = (req, res) => {
     }
   })
 };
+
 
 exports.createResetPassword = (req, res) => {
   resetPasswordModel.createResetPassword(req.body, (err, data) => {
@@ -61,13 +65,12 @@ exports.createResetPassword = (req, res) => {
   })
 };
 
+
 exports.updateResetPassword = (req, res) => {
   resetPasswordModel.updateResetPassword(req, (err, data) => {
     if (err) {
-      return res.status(500).json({
-        succes: false,
-        message: 'Acces failed'
-      })
+      console.log(err);
+      return errorHandler(err, res)
     } else {
       return res.status(200).json({
         succes: true,
@@ -77,6 +80,7 @@ exports.updateResetPassword = (req, res) => {
     }
   })
 };
+
 
 exports.deleteResetPassword = (req, res) => {
   resetPasswordModel.deleteResetPassword(req, (err, data) => {
