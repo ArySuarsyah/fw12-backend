@@ -2,9 +2,9 @@ const db = require('../helper/db.helper')
 
 
 
-exports.readAllCasts = (call) => {
-  const sql = 'SELECT * FROM "casts" LIMIT 5 OFFSET 5'
-
+exports.readAllCasts = (data, call) => {
+  const sql = 'SELECT * FROM "casts" '
+  // const values = [data.limit, data.offset]
   db.query(sql, call)
 };
 

@@ -153,6 +153,14 @@ CREATE TABLE
         "updatedAt" TIMESTAMPTZ
     );
 
+
+
+
+
+-- Insert
+
+
+
 INSERT INTO
     "users" (
         "firstName",
@@ -322,12 +330,17 @@ VALUES ('C4', 2), ('C5', 2), ('C6', 2);
 
 INSERT INTO "paymentMethod" ("name") VALUES ('Visa');
 
-INSERT INTO "subscribers" ("email") VALUES ('pengunjung@email.com');
+
+
+
+
+
 
 ALTER TABLE "users" ADD CONSTRAINT "email" UNIQUE ("email");
 
 ALTER TABLE "genre" ADD CONSTRAINT "name" UNIQUE ("name");
 
+ALTER TABLE "casts" ADD CONSTRAINT "castName" UNIQUE ("name");
 --FOREIGN KEY
 
 --movie Case =>
@@ -352,7 +365,10 @@ ADD
 
 ALTER TABLE "movieGenre"
 ADD
-    CONSTRAINT "fk_movieGenre_movieId" FOREIGN KEY ("movieId") REFERENCES "movies"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    CONSTRAINT "fk_movieGenre_movieId"
+    FOREIGN KEY ("movieId")
+    REFERENCES "movies"("id")
+    ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE "movieGenre"
 ADD

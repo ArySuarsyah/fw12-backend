@@ -1,5 +1,4 @@
 const errorHandler = (err, res) => {
-  console.log(err);
   if (err.message.includes('unique constraint "email"')) {
     return res.status(400).json({
       success: false,
@@ -14,6 +13,11 @@ const errorHandler = (err, res) => {
     return res.status(400).json({
       success: false,
       message: 'Collumn does not exist'
+    })
+  } else if (err.message.includes('duplicate key value violates unique constraint "castName"')) {
+    return res.status(400).json({
+      success: false,
+      message: 'Cast already exist'
     })
   }
   return res.status(500).json({

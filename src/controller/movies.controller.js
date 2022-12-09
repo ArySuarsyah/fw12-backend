@@ -1,13 +1,13 @@
 const errorHandler = require('../helper/errorHandler.helper');
 const moviesModel = require('../models/movies.model');
-const filter = require('../helper/filter.helper')
+const filter = require('../helper/filter.helper');
+const fs = require('fs')
 
 
 
 exports.readAllMovies = (req, res) => {
   moviesModel.readAllMovies((err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -25,7 +25,6 @@ exports.readAllMovies = (req, res) => {
 exports.readMovies = (req, res) => {
   moviesModel.readMovies(req.params, (err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -41,10 +40,26 @@ exports.readMovies = (req, res) => {
 };
 
 
+
+
 exports.createMovies = (req, res) => {
+    req.body.picture = req.file.filename;
+    moviesModel.readMovies(req.params, (err, data) => {
+      if (data.rows.length) {
+        const [movie] = data.rows
+        if (movie.picture) {
+          fs.rm("picture/" + movie.picture, { force: true }, (err) => {
+            if (err) {
+              return errorHandler(err, res)
+
+            }
+          });
+        }
+      }
+    })
+
   moviesModel.createMovies(req.body, (err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -60,9 +75,25 @@ exports.createMovies = (req, res) => {
 };
 
 exports.updateMovies = (req, res) => {
+  if (req.file) {
+    req.body.picture = req.file.filename;
+    moviesModel.readMovies(req.params.id, (err, data) => {
+      if (data.rows.length) {
+        const [movie] = data.rows
+        if (movie.picture) {
+          fs.rm("picture/" + movie.picture, { force: true }, (err) => {
+            if (err) {
+              return errorHandler(err, res)
+            }
+          });
+        }
+      }
+    })
+  }
+
   moviesModel.updateMovies(req, (err, data) => {
+    // console.log(err);
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
         message: 'Access failed'
@@ -81,7 +112,6 @@ exports.updateMovies = (req, res) => {
 exports.deleteMovie = (req, res) => {
   moviesModel.deleteMovie(req, (err, data) => {
     if (err) {
-      console.log(err);
       return res.status(500).json({
         success: false,
         message: ' Access failed'
@@ -151,5 +181,3 @@ exports.searchMovies = (req, res) => {
     })
   })
 };
-
-

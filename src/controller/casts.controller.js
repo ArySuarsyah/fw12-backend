@@ -4,16 +4,21 @@ const errorHandler = require('../helper/errorHandler.helper')
 
 
 
-
 exports.readAllCasts = (req, res) => {
-  castsModel.readAllCasts((err, data) => {
+  req.query.page = parseInt(req.query.page) || 1
+  req.query.limit = parseInt(req.query.limit) || ''
+  const filter = {
+    limit: req.query.limit,
+    offset: (parseInt(req.query.page) - 1) * req.query.limit
+  }
+  castsModel.readAllCasts(filter, (err, data) => {
     if (err) {
-      errorHandler(req, res)
+      errorHandler(err, res)
     } else {
       return res.status(200).json({
         success: true,
         message: 'Access success',
-        result: data.rows
+        result: data.rows.name,
       })
     }
   })
@@ -23,7 +28,7 @@ exports.readAllCasts = (req, res) => {
 exports.readCasts = (req, res) => {
   castsModel.readCasts(req.params, (err, data) => {
     if (err) {
-      errorHandler(req, res)
+      errorHandler(err, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -37,7 +42,7 @@ exports.readCasts = (req, res) => {
 exports.updateCasts = (req, res) => {
   castsModel.updateCasts(req, (err, data) => {
     if (err) {
-      errorHandler(req, res)
+      return errorHandler(err, res)
     } else {
       return res.status(200).json({
         success: true,
@@ -51,7 +56,7 @@ exports.updateCasts = (req, res) => {
 exports.createCasts = (req, res) => {
   castsModel.createCasts(req.body, (err, data) => {
     if (err) {
-      errorHandler(req, res)
+      errorHandler(err, res)
     } else {
       return res.status(200).json({
         success: true,

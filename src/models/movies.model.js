@@ -12,7 +12,7 @@ exports.readAllMovies = (call) => {
 
 exports.readMovies = (data, call) => {
   const sql = 'SELECT * FROM "movies" WHERE "id" = $1'
-  const values = [data.id]
+  const values = [data];
   db.query(sql, values, call)
 };
 

@@ -65,13 +65,16 @@ exports.updateUsers = (req, res) => {
       if (data.rows.length) {
         const [user] = data.rows
         if (user.picture) {
-        fs.rm("picture/" + user.picture, { force: true }, (err) => {
-          return errorHandler(err, res)
+          fs.rm("picture/" + user.picture, { force: true }, (err) => {
+            if (err) {
+              return errorHandler(err, res);
+            }
         })
         }
       }
     })
   }
+
   userModel.updateUsers(req, (err, data) => {
     console.log(data);
     if (err) {
