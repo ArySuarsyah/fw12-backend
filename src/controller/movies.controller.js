@@ -39,9 +39,6 @@ exports.readMovies = (req, res) => {
   })
 };
 
-
-
-
 exports.createMovies = (req, res) => {
     req.body.picture = req.file.filename;
     moviesModel.readMovies(req.params, (err, data) => {
@@ -135,7 +132,6 @@ exports.upcoming = (req, res) => {
     offset: (parseInt(req.query.page) - 1) * req.query.limit
   }
   moviesModel.upcoming(req.query, filter, (err, data) => {
-    console.log(data);
     if (err) {
       return errorHandler(err, res)
     } else {

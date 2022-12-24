@@ -1,5 +1,5 @@
-CREATE DATABASE super_movie;
 
+UPDATE DATABASE super_movie;
 CREATE TABLE
     "users" (
         "id" INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -58,7 +58,7 @@ CREATE TABLE
 CREATE TABLE
     "casts" (
         "id" INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        'name' VARCHAR(225),
+        "name" VARCHAR(225),
         "createdAt" TIMESTAMPTZ DEFAULT now(),
         "updatedAt" TIMESTAMPTZ
     );
@@ -153,13 +153,7 @@ CREATE TABLE
         "updatedAt" TIMESTAMPTZ
     );
 
-
-
-
-
 -- Insert
-
-
 
 INSERT INTO
     "users" (
@@ -184,14 +178,6 @@ VALUES (
     );
 
 INSERT INTO
-    "resetPassword" ("email", "userId", "code")
-VALUES (
-        'superuser@email.com',
-        3,
-        '12345'
-    );
-
-INSERT INTO
     "movies" (
         "title",
         "realeseDate",
@@ -205,17 +191,7 @@ VALUES (
         'Jon Watss',
         '2:13',
         'Thrilled by his experience with the Avengers, Peter returns home, where he lives with his Aunt May, under the watchful eye of his new mentor Tony Stark, Peter tries to fall back into his normal daily routine - distracted by thoughts of proving himself to be more than just your friendly neighborhood Spider - Man but when the Vulture emerges as a new villain, everything that Peter holds most important will be threatened.'
-    );
-
-INSERT INTO
-    "movies" (
-        "title",
-        "realeseDate",
-        "director",
-        "duration",
-        "synopsis"
-    )
-VALUES (
+    ), (
         'One Piece: RED',
         'September 21, 2022',
         'Gorō Taniguchi ',
@@ -227,19 +203,31 @@ VALUES (
         'Joe Russo, Anthony Russo ',
         '3:00',
         'The grave course of events set in motion by Thanos that wiped out half the universe and fractured the Avengers ranks compels the remaining Avengers to take one final stand in Marvel Studios grand conclusion to twenty-two films, Avengers: Endgame.'
+    ), (
+        'Deadpool',
+        'February 12, 2016',
+        'Tim Miller',
+        '02:00:08',
+        'Based upon Marvel Comics’ most unconventional anti-hero, DEADPOOL tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.'
+    ), (
+        'X-MEN: Apocalypse',
+        'May 27, 2016',
+        'Bryan Singer',
+        '02:08:00',
+        'Upon awakening after thousands of years, Apocalypse is disillusioned with the world as he finds it and recruits a team of powerful mutants, including a disheartened Magneto (Michael Fassbender), to cleanse mankind and create a new world order, over which he will reign. As the fate of the Earth hangs in the balance, Raven (Jennifer Lawrence) with the help of Professor X (James McAvoy) must lead a team of young X-Men to stop their greatest nemesis and save mankind from complete destruction.'
+    ), (
+        'X-MEN: Days Of Future Past.',
+        'May 23, 2014',
+        'Bryan Singer',
+        '02:18:08',
+        'The ultimate X-Men ensemble fights a war for the survival of the species across two time periods in X-MEN: DAYS OF FUTURE PAST. The beloved characters from the original “X-Men” film trilogy join forces with their younger selves from the past, “X-Men: First Class,” in order to change a major historical event and fight in an epic battle that could save our future.'
     );
 
 INSERT INTO "genre" ("name")
-VALUES ('Adventure'), ('Action'), ('Sci-Fi');
-
-INSERT INTO
-    "movieGenre" ("movieId", "genreId")
-VALUES (2, 4), (2, 5), (2, 6), (9, 4), (9, 5), (10, 4), (10, 5);
+VALUES ('Adventure'), ('Action'), ('Sci-Fi'), ('Fantasy'), ('Science Fiction'), ('Comedy');
 
 INSERT INTO "casts" ("name")
-VALUES ('Tom Holland'), ('Michael Keaton'), ('Robert Downey Jr');
-
-INSERT INTO "movieCasts" ("movieId", "castId") VALUES (2, 4);
+VALUES ('Michael Keaton'), ('Robert Downey Jr'), ('Tom Holland'), ('Hugh Jackman'), ('James McAvoy'), ('Michael Fassbender'), ('Jennifer Lawrence'), ('Halle Berry'), ('Anna Paquin'), ('Peter Dinklage'), ('Ian McKellen'), ('Patrick Stewart'), ('Ryan Reynolds'), ('Morena Baccarin'), ('Ed Skrein'), ('T.J. Miller'), ('Gina Carano'), ('Brianna Hildebrand'), ('Ary'), ('ennifer Lawrence'), ('Oscar Isaac'), ('Nicholas Hoult'), ('Rose Byrne'), ('Tye Sheridan'), ('NicholasSophie Turner'), ('NicOlivia Munn'), ('Olivia Munn');
 
 INSERT INTO
     "cinemas" ("name", "address", "city")
@@ -257,174 +245,9 @@ VALUES (
         'Purwokerto'
     );
 
-INSERT INTO
-    "movieSchedules" (
-        "movieId",
-        "cinemaId",
-        "price",
-        "startDate",
-        "endDate"
-    )
-VALUES (
-        2,
-        5,
-        '10',
-        '2020-05-07',
-        '2020-07-07'
-    );
-
-INSERT INTO
-    "movieSchedules" (
-        "movieId",
-        "cinemaId",
-        "price",
-        "startDate",
-        "endDate"
-    )
-VALUES (
-        9,
-        6,
-        '10',
-        '01-12-2022',
-        '31-12-2022'
-    ), (
-        10,
-        4,
-        '10',
-        '01-11-2022',
-        '30-11-2022'
-    );
-
-INSERT INTO
-    "movieShceduleTimes" ("time", "movieScheduleId")
-VALUES ('08:30', 2);
-
 INSERT INTO "status" ("name")
 VALUES ('Ticket Active'), ('Ticket Used'), ('Ticket Expired');
 
 INSERT INTO
-    "transactions" (
-        "bookingDate",
-        "movieId",
-        "cinemaId",
-        "movieScheduleId",
-        "fullname",
-        "email",
-        "phoneNumber",
-        "statusId"
-    )
-VALUES (
-        'Tuesday, 07 July 2020 at 02:00',
-        2,
-        5,
-        2,
-        'Arisuharsa',
-        'admin@email.com',
-        '081234567890',
-        2
-    );
-
-INSERT INTO
-    "reservedSeat" ("seatNum", "transactionId")
-VALUES ('C4', 2), ('C5', 2), ('C6', 2);
-
-INSERT INTO "paymentMethod" ("name") VALUES ('Visa');
-
-
-
-
-
-
-
-ALTER TABLE "users" ADD CONSTRAINT "email" UNIQUE ("email");
-
-ALTER TABLE "genre" ADD CONSTRAINT "name" UNIQUE ("name");
-
-ALTER TABLE "casts" ADD CONSTRAINT "castName" UNIQUE ("name");
---FOREIGN KEY
-
---movie Case =>
-
--- movie id
-
---cast id
-
-ALTER TABLE "movieCasts"
-ADD
-    CONSTRAINT "fk_movieCasts_movieId" FOREIGN KEY ("movieId") REFERENCES "movies"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "movieCasts"
-ADD
-    CONSTRAINT "fk_movieCasts_castId" FOREIGN KEY ("castId") REFERENCES "casts"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
---movie genre =>
-
---movie id
-
---genre id
-
-ALTER TABLE "movieGenre"
-ADD
-    CONSTRAINT "fk_movieGenre_movieId"
-    FOREIGN KEY ("movieId")
-    REFERENCES "movies"("id")
-    ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "movieGenre"
-ADD
-    CONSTRAINT "fk_movieGenre_genreId" FOREIGN KEY ("genreId") REFERENCES "genre"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
---movie schedule time =>
-
---movie schedules id
-
-ALTER TABLE
-    "movieScheduleTimes"
-ADD
-    CONSTRAINT "fk_movieScheduleTimes_movieScheduleId" FOREIGN KEY ("movieScheduleId") REFERENCES "movieSchedules"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
---movie schedules =>
-
---movie id
-
---cinema id
-
-ALTER TABLE "movieSchedules"
-ADD
-    CONSTRAINT "fk_movieSchedules_movieId" FOREIGN KEY ("movieId") REFERENCES "movies"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "movieSchedules"
-ADD
-    CONSTRAINT "fk_movieSchedules_cinemaId" FOREIGN KEY ("cinemaId") REFERENCES "cinemas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- reset password =>
-
---user id
-
-ALTER TABLE "resetPassword"
-ADD
-    CONSTRAINT "fk_resetPassword_userId" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
---transaction =>
-
---movie id
-
---cinema id
-
---movie schedule id
-
-ALTER TABLE "transactions"
-ADD
-    CONSTRAINT "fk_transactions_movieId" FOREIGN KEY ("movieId") REFERENCES "movies"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "transactions"
-ADD
-    CONSTRAINT "fk_transactions_cinemaId" FOREIGN KEY ("cinemaId") REFERENCES "cinemas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "transactions"
-ADD
-    CONSTRAINT "fk_transactions_movieScheduleId" FOREIGN KEY ("movieScheduleId") REFERENCES "movieSchedules"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "transactions"
-ADD
-    CONSTRAINT "fk_transactions_statusId" FOREIGN KEY ("statusId") REFERENCES "status"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    "paymentMethod" ("name")
+VALUES ('Visa'), ('Google Pay'), ('Gopay'), ('Paypal'), ('Dana'), ('Bank Central Asia'), ('Bank Rakyat Indonesia'), ('Ovo');
