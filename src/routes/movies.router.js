@@ -24,4 +24,4 @@ movieRouter.delete('/:id', authMiddleware, deleteMovie);
 
 
 
-module.exports = movieRouter
+module.exports = movieRouter;
