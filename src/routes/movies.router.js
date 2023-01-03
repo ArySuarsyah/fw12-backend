@@ -6,7 +6,7 @@ const updatePictureMiddleware = require('../middleware/updatePicture.middleware'
 
 
 
-movieRouter.get('/', authMiddleware, readAllMovies);
+movieRouter.get('/', readAllMovies);
 
 movieRouter.post('/', authMiddleware, updatePictureMiddleware, createMovies);
 
