@@ -5,7 +5,7 @@ const fs = require('fs');
 
 
 
-
+;
 
 exports.readAllUsers = (request, response) => {
 userModel.readAllUser((err, data) => {  // ???
