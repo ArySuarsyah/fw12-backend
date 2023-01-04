@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: ".env",
+});
+
 const express = require('express');
 // Morgan, cors
 const app = express();
@@ -16,7 +20,7 @@ app.get('/', (request, response) => {
   })
 })
 
-
-app.listen(8888, () => {
-  console.log('App listening in port 8888');
+const PORT = process.env.PORT || 8888
+app.listen(PORT, () => {
+  console.log(`App listening in port ${PORT}`);
 });
