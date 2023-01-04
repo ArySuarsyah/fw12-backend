@@ -138,7 +138,7 @@ exports.upcoming = (req, res) => {
       return res.json({
         success: true,
         message: 'Upcoming Movie',
-        result: data.rows
+        result: data.rows[0]
       })
     }
   })
